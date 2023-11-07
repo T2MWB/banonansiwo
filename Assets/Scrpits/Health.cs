@@ -1,17 +1,29 @@
+/*
+Erstellung: ???
+Authoren: Tammo Wiebe
+Nutzen: Generalisierung von Lebenspunkten. Dient zur Manipulation der Lebenspunkte und bietet ein Defaultfeld an.
+Änderungen:
+3.6.2023, Tammo Wiebe - beschreibender Programmkopf hinzugefügt
+8.6.2023, Tammo Wiebe - Schadensanzeige für Gegner eingebaut
+*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Health : MonoBehaviour
 {
     [SerializeField] private int health = 100;
+    [SerializeField] private bool singleHit = false;
 
     private int MAX_HEALTH = 100;
 
+    public TMP_Text indicator;
+
     // Update is called once per frame
-    void Update()
+    void Start()
     {
-        
+        indicator.text = "";
     }
     
     public int ShowHealth()
@@ -21,6 +33,24 @@ public class Health : MonoBehaviour
     //M�glichkeit der Entit�t von ausser Health ab zu ziehen
     public void Damage(int amount)
     {
+        int current_damage;
+        int.TryParse(indicator.text, out current_damage);
+        if (this.CompareTag("Enemy")){
+            if (singleHit){
+                current_damage = amount;
+                indicator.text = current_damage.ToString();
+            }
+            else{
+                current_damage = current_damage + amount;
+                indicator.text = current_damage.ToString();
+            }
+
+        }
+        /* This will be the health indicator for the hero, rn it's showing alot of weird stuff though
+        else{
+            current_damage = health - current_damage;
+            indicator.text = current_damage.ToString();
+        }*/
         if(amount < 0)
         {
             throw new System.ArgumentOutOfRangeException("(negativer schaden) Bruder du heilst dich mit Damage, falsche Methode");
@@ -60,6 +90,7 @@ public class Health : MonoBehaviour
             this.health += amount;
         }
     }
+
     private void Die()
     {
         Debug.Log(gameObject.name.ToString() + " ist gestorben!");
@@ -70,9 +101,10 @@ public class Health : MonoBehaviour
         }*/
         if (this.CompareTag("Enemy"))
         {
-            this.GetComponent<Enemy>().animator.Play("Death");
+            this.GetComponent<Enemy>().animator.SetBool("Death", true);
+            this.GetComponent<Enemy>().animator.Play("Die");
             this.GetComponent<Enemy>().move = false;
-            StartCoroutine(DieDelay());
+            //StartCoroutine(DieDelay());
         }
         else
         {
@@ -82,9 +114,9 @@ public class Health : MonoBehaviour
         //this.close();
     }
 
-    IEnumerator DieDelay()
+    /*IEnumerator DieDelay()
     {
         yield return new WaitForSeconds(this.GetComponent<Enemy>().animator.GetComponent<Animation>().clip.length);
         Destroy(gameObject);
-    }
+    }*/
 }

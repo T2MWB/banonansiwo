@@ -1,3 +1,12 @@
+/*
+Erstellung: ???
+Authoren: Tammo Wiebe
+Nutzen: Hauptskript für den Spieler(Player). Die wichtigsten Funktionen des Spielers sind hier vertreten.
+Änderungen:
+3.6.2023, Tammo Wiebe - beschreibender Programmkopf hinzugefügt, "Hit" Animation auf den Gegner ausgelagert
+8.6.2023, Tammo Wiebe - Blickrichtung wird jetzt basierend auf Mausposition mit setOrientation() festgestellt
+22.6.2023, Tammo Wiebe - vollendung von Blickrichtung basierend auf Mausposition
+*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     public Animator animation;
     Vector2 bewegung;
+    Vector2 playerPos;
 
     //Angriff
     public WeaponData weapon;
@@ -28,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
         //importiere die werte vom ScriptableObject
         damage = weapon.damage;
         range = weapon.range;
+        playerPos.Set(Screen.width/2,Screen.height/2);        //This is really risky because it will not update for screen resizing in start
     }
 
     // Update is called once per frame
@@ -36,8 +47,10 @@ public class PlayerMovement : MonoBehaviour
         bewegung.x = Input.GetAxisRaw("Horizontal");
         bewegung.y = Input.GetAxisRaw("Vertical");
 
-        animation.SetFloat("Vertikal", bewegung.y);
-        animation.SetFloat("Horizontal", bewegung.x);
+        
+        setOrientation();
+        //animation.SetFloat("Vertikal", bewegung.y);
+        //animation.SetFloat("Horizontal", bewegung.x);
         animation.SetFloat("Geschwindigkeit", bewegung.sqrMagnitude);
         
         if (Input.GetButtonDown("Fire1")){
@@ -45,11 +58,28 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void setOrientation(){
+        Vector2 mousePos = Input.mousePosition;
+        Vector2 distance = mousePos - playerPos;
+        distance.Normalize();
+        //Vector2 Vplayer = transform.position;
+        //Vector2 Vplayer = GetComponent<Camera>().WorldToScreenPoint(transform.position);
+
+        //Debug.Log("Distance: " + distance);
+        
+        animation.SetFloat("Horizontal", distance.x);
+        animation.SetFloat("Vertikal", distance.y);
+    }
+
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + bewegung.normalized * Geschw * Time.fixedDeltaTime);
     }
 
+    public void changeWeapon(int damage, float range){
+        this.damage = damage;
+        this.range = range;
+    }
     private void Attacke()
     {
         animation.Play("Attack");
@@ -57,9 +87,12 @@ public class PlayerMovement : MonoBehaviour
         
         foreach(Collider2D enemy in hitEnemies)
         {
-            enemy.GetComponent<Enemy>().GetComponent<Animator>().Play("Hit");
-            enemy.GetComponent<Health>().Damage(damage);
-            Debug.Log(enemy.name + " Ist getroffen");
+            if(enemy is BoxCollider2D){
+            /*enemy.GetComponent<Enemy>().GetComponent<Animator>().Play("Hit");
+            enemy.GetComponent<Health>().Damage(damage);*/
+                enemy.GetComponent<Enemy>().BeHit(damage);
+                Debug.Log(enemy.name + " Ist getroffen");
+            }
         }
         
         /*if (collider.CompareTag("Enemy")){
