@@ -6,8 +6,9 @@ using UnityEngine;
 
 public class WeaponData : ScriptableObject
 {
-    //alle daten die eine waffe haben müsste
+    //alle daten die eine waffe haben mï¿½sste
     public int damage;
     public float range;
+    public float speed;
     //public int type;
 }

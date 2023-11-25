@@ -77,8 +77,8 @@ public class Enemy : MonoBehaviour
     {
         if (!(animator.GetBool("Death"))){
             if (!(animator.GetBool("isAttacking"))){
-                //animator.Play("Hit");
-                rend.color = hitColor;
+                animator.Play("Hit");
+                //rend.color = hitColor;
             }
             GetComponent<Health>().Damage(damage);
         }

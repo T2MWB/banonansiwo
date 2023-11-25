@@ -1,3 +1,5 @@
+//This is not used anymore, I don't know why we have it in our project
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

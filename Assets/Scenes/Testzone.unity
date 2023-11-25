@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 86662974}
   - component: {fileID: 86662973}
   m_Layer: 0
-  m_Name: Iron
+  m_Name: Schwert
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f260564a607c74c8fc62f0eddff81d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: 8a7504eaae067fb439a818e402e4d0a0, type: 2}
+  weapon: {fileID: 11400000, guid: 316e02ca7c85fef4ebc4a60c27f5032b, type: 2}
 --- !u!58 &86662974
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -632,7 +632,7 @@ GameObject:
   - component: {fileID: 517496775}
   - component: {fileID: 517496774}
   m_Layer: 0
-  m_Name: Wood
+  m_Name: Speer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -665,7 +665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f260564a607c74c8fc62f0eddff81d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: a9e4017f34456ef469b1a4b7d5e94530, type: 2}
+  weapon: {fileID: 11400000, guid: aaf9511a7324f584492d606999a40259, type: 2}
 --- !u!58 &517496775
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -723,7 +723,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 196f99e1f9f17d940b2edea3f6f29694, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f5eea1d3c2f674944bd23b6fb9994553, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -929,7 +929,7 @@ GameObject:
   - component: {fileID: 978796503}
   - component: {fileID: 978796502}
   m_Layer: 0
-  m_Name: Gold
+  m_Name: Langschwert
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -962,7 +962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f260564a607c74c8fc62f0eddff81d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: ebc9c2d5ef77d4843bdfb8bb0bd3bd7a, type: 2}
+  weapon: {fileID: 11400000, guid: 8a7504eaae067fb439a818e402e4d0a0, type: 2}
 --- !u!58 &978796503
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1020,7 +1020,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b250c5b80874e6c45aaaf4bf5a8a566a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bbadbb561877b6d4a8a80de03d423778, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1841,7 +1841,7 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: 8a7504eaae067fb439a818e402e4d0a0, type: 2}
   radius: {fileID: 0}
   attackPoint: {fileID: 1908496174}
-  range: 1
+  range: 0.5
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -1921,7 +1921,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1637331353}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

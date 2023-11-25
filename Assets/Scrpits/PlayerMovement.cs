@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
     public Transform attackPoint;
     public float range = 1f;
+    private float wpnspeed = 1f;
     public LayerMask enemyLayer;
 
     // Start is called before the first frame update
@@ -38,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         //importiere die werte vom ScriptableObject
         damage = weapon.damage;
         range = weapon.range;
+        wpnspeed = weapon.speed;
         playerPos.Set(Screen.width/2,Screen.height/2);        //This is really risky because it will not update for screen resizing in start
     }
 
@@ -76,12 +78,14 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(rb.position + bewegung.normalized * Geschw * Time.fixedDeltaTime);
     }
 
-    public void changeWeapon(int damage, float range){
+    public void changeWeapon(int damage, float range, float speed){
         this.damage = damage;
         this.range = range;
+        this.wpnspeed = speed;
     }
     private void Attacke()
     {
+        animation.speed = wpnspeed;
         animation.Play("Attack");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, range, enemyLayer);
         
