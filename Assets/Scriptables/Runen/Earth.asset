@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c88fd22ba9121f41a0b7c12d24dd33c, type: 3}
+  m_Name: Earth
+  m_EditorClassIdentifier: 
+  itemType: Rune
+  name: Erde
+  baseDmg: 10
+  Icon: {fileID: 21300000, guid: 4595dd17d7286784c99278b1864405cd, type: 3}
+  InSlot: {fileID: 21300000, guid: 2f7ea66328e45c143922d926c9b6c6dc, type: 3}
+  level: 0
+  color: {r: 0.4156863, g: 0.7137255, b: 0.20784315, a: 0}
+  description: "Von den Dryaden im Osten aus gepressten Bl\xE4ttern geformt k\xF6nnte
+    man sie genau so gut in hei\xDFes Wasser geben, so kondensiert wie hier bringt
+    sie jedoch ihre geballte Kraft mit sich."

@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aece8a5f97f9ac84a8b4bf782854d94b, type: 3}
   m_Name: Speer
   m_EditorClassIdentifier: 
-  damage: 5
+  name: speer
+  damage: 10
   range: 2
-  speed: 2
+  handling: 0.1
+  speed: 0.25
+  animspeed: 2

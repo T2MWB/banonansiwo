@@ -18,12 +18,15 @@ public class Health : MonoBehaviour
 
     private int MAX_HEALTH = 100;
 
-    public TMP_Text indicator;
+    public GameObject xpPrefab;
+    public TextMeshPro indicator;
+    //This doesnt work (shows no text)
+    public GameObject DamageIndicator;
 
     // Update is called once per frame
     void Start()
     {
-        indicator.text = "";
+
     }
     
     public int ShowHealth()
@@ -31,10 +34,14 @@ public class Health : MonoBehaviour
         return health;
     }
     //M�glichkeit der Entit�t von ausser Health ab zu ziehen
-    public void Damage(int amount)
+    public void Damage(int amount,Color color)
     {
+        //Does all the showy shit now
         int current_damage;
         int.TryParse(indicator.text, out current_damage);
+        var spawnOffset = new Vector3(Random.Range(-0.3f,0.3f),Random.Range(-0.1f,0.5f),0f);
+        Debug.Log(spawnOffset);
+        indicator.transform.position = new Vector3(transform.position.x + spawnOffset.x,transform.position.y + spawnOffset.y,indicator.transform.position.z);
         if (this.CompareTag("Enemy")){
             if (singleHit){
                 current_damage = amount;
@@ -46,6 +53,13 @@ public class Health : MonoBehaviour
             }
 
         }
+        //WILL REPLACE
+        /*var spawnOffset = new Vector3(Random.Range(-0.3f,0.3f),Random.Range(-0.1f,0.5f),0f);
+        GameObject newDMG = Instantiate(DamageIndicator, transform.position+spawnOffset, Quaternion.identity, transform);
+        //Debug.Log(transform.GetChild(2).name);
+        //newDMG.transform.parent = transform.GetChild(3);
+        newDMG.GetComponent<DamageIndicator>().SetUp(amount.ToString(),color,spawnOffset);
+        //newDMG.transform.parent = .transform;*/
         /* This will be the health indicator for the hero, rn it's showing alot of weird stuff though
         else{
             current_damage = health - current_damage;
@@ -54,6 +68,7 @@ public class Health : MonoBehaviour
         if(amount < 0)
         {
             throw new System.ArgumentOutOfRangeException("(negativer schaden) Bruder du heilst dich mit Damage, falsche Methode");
+            return;
         }
 
         this.health -= amount;
@@ -104,6 +119,13 @@ public class Health : MonoBehaviour
             this.GetComponent<Enemy>().animator.SetBool("Death", true);
             this.GetComponent<Enemy>().animator.Play("Die");
             this.GetComponent<Enemy>().move = false;
+            int xpAmount = MAX_HEALTH/10;
+            for(int i=0;i<xpAmount;i++){
+                var spawnOffset = new Vector3(Random.Range(-0.5f,0.5f),Random.Range(-0.5f,0.5f),0);
+                GameObject newXP = Instantiate(xpPrefab, transform.position+spawnOffset, Quaternion.identity, transform);
+                newXP.GetComponent<XPOrb>().SetUp(10);
+                newXP.transform.parent = transform.parent;
+            }
             //StartCoroutine(DieDelay());
         }
         else

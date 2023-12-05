@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c88fd22ba9121f41a0b7c12d24dd33c, type: 3}
+  m_Name: Fire
+  m_EditorClassIdentifier: 
+  itemType: Rune
+  name: Feuer
+  baseDmg: 5
+  Icon: {fileID: 21300000, guid: 7acd1d2abd73b9249a3f54c5c9776ba9, type: 3}
+  InSlot: {fileID: 21300000, guid: 3b238f776b60ef74893276461befb1f3, type: 3}
+  level: 0
+  color: {r: 0.8313726, g: 0.6117647, b: 0.14901961, a: 0}
+  description: "Als ein Zwerg vor ein paar Jahren auf diese Rune sto\xDF, w\xFCrde
+    er sich die H\xE4nde abschmelzen bei dem Versuch sie Heim zu nehmen. Heute ist
+    sie \xE4hnlich wie eine hei\xDFe Kartoffel, packt aber immer noch den selben
+    Punch wenn man wei\xDF wie man ihr Potential entfaltet."

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c88fd22ba9121f41a0b7c12d24dd33c, type: 3}
+  m_Name: Water
+  m_EditorClassIdentifier: 
+  itemType: Rune
+  name: Wasser
+  baseDmg: 5
+  Icon: {fileID: 21300000, guid: 7b398a5f88f5a5048b9d71e5dec799e0, type: 3}
+  InSlot: {fileID: 21300000, guid: 41af16a101f174b46b874fd5a88b5cc1, type: 3}
+  level: 0
+  color: {r: 0.2901961, g: 0.36078432, b: 0.7764706, a: 0}
+  description: "Aegir\u2019s ganzer stolz, eine abscheuliche Rune. Ihre Schwestern
+    sind f\xFCr die Schicksale etlicher unserer Kameraden verantwortlich."

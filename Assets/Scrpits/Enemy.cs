@@ -13,6 +13,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     //default variablen falls es kein EnemyData script daf�r gibt
+    public Color defaultColor;
     [SerializeField]
     private int damage = 5;
     [SerializeField]
@@ -21,13 +22,13 @@ public class Enemy : MonoBehaviour
     private bool isDummy = false;
 
 
+//4.12.2023 - Ich bereuhe das was ich hier sehe zutiefst, lasse es aber den Historikern darüber zu urteilen.
     [SerializeField]
     private EnemyData data;
 
     private GameObject player;
 
     public Animator animator;
-    public Color hitColor;
     private SpriteRenderer rend;
 
     public bool move = true;
@@ -73,14 +74,14 @@ public class Enemy : MonoBehaviour
         
     }
 
-    public void BeHit(int damage)
+    public void BeHit(int damage,Color color)
     {
         if (!(animator.GetBool("Death"))){
             if (!(animator.GetBool("isAttacking"))){
                 animator.Play("Hit");
                 //rend.color = hitColor;
             }
-            GetComponent<Health>().Damage(damage);
+            GetComponent<Health>().Damage(damage,color);
         }
     }
 
@@ -98,7 +99,7 @@ public class Enemy : MonoBehaviour
                 if(collider.GetComponent<Health>() != null)
                 {
                     Debug.Log(this.gameObject.name + " | " + damage);
-                    collider.GetComponent<Health>().Damage(damage);
+                    collider.GetComponent<Health>().Damage(damage,defaultColor);
                 }
             }
         }

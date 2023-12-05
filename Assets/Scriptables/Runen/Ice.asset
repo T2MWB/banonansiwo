@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c88fd22ba9121f41a0b7c12d24dd33c, type: 3}
+  m_Name: Ice
+  m_EditorClassIdentifier: 
+  itemType: Rune
+  name: Eis
+  baseDmg: 5
+  Icon: {fileID: 21300000, guid: 353a9c3b50f57914f97743313241157b, type: 3}
+  InSlot: {fileID: 21300000, guid: f5b670e17da27154095cd9c2378a940c, type: 3}
+  level: 0
+  color: {r: 0.9372549, g: 0.93333334, b: 0.9647059, a: 0}
+  description: "F\xFCr Jahre von einem Drachen beh\xFCtet k\xF6nnte man meinen, der
+    silbrige Glanz h\xE4tte ihn verleitet. Richtig genutzt entfaltet sie jedoch Eiskr\xE4fte
+    die eine fr\xFChe Eiszeit hervorrufen k\xF6nnten"

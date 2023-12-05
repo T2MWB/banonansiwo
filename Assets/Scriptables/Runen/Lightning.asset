@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c88fd22ba9121f41a0b7c12d24dd33c, type: 3}
+  m_Name: Lightning
+  m_EditorClassIdentifier: 
+  itemType: Rune
+  name: Blitz
+  baseDmg: 5
+  Icon: {fileID: 21300000, guid: d7839fd9df0f5ad4a9fe159af72315d3, type: 3}
+  InSlot: {fileID: 21300000, guid: 006c557c23e1bba4e8ce82579fa7359f, type: 3}
+  level: 0
+  color: {r: 0.5764706, g: 0.34509805, b: 0.6666667, a: 0}
+  description: "Man sagt Thor pers\xF6nlich h\xE4tte diese Rune als Amulett getragen.
+    Dies ist nur eine von vielen Kopien, die Kraft des Blitzes beh\xFCtet sie dennoch
+    wie keine zweite."

@@ -13,6 +13,16 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    //Stats
+    public ImgStatSlider levelBar;
+    public ImgStatSlider staminaBar;
+    public ImgStatSlider healthBar;
+    public ImgStatSlider coolBar;
+    private float playerXP = 0;
+    private int level = 1;
+    private float stamina = 1f;
+    private float cooldownProgress;
+
     //Bewegung
     public float Geschw = 5f;
 
@@ -22,30 +32,61 @@ public class PlayerMovement : MonoBehaviour
     Vector2 playerPos;
 
     //Angriff
-    public WeaponData weapon;
+    public Weapon weapondata;
     public Collider2D radius;
 
     private int damage = 5;
+    public Color defaultColor;
 
     public Transform attackPoint;
-    public float range = 1f;
+    private float range = 1f;
+    private float handling = 0.1f;
     private float wpnspeed = 1f;
+    private float animspeed = 1f;
+    private string weaponname;
     public LayerMask enemyLayer;
+    
+    //weiteres
+    public GameObject UI; 
+    private float lastAtk;
+    public Rune[] runes = new Rune[2];
 
     // Start is called before the first frame update
     void Start()
     {
         //Debug.Log(radius.GetType().ToString());
         //importiere die werte vom ScriptableObject
-        damage = weapon.damage;
-        range = weapon.range;
-        wpnspeed = weapon.speed;
+        damage = weapondata.damage;
+        range = weapondata.range;
+        wpnspeed = weapondata.speed;
+        handling = weapondata.handling;
+        animspeed = weapondata.animspeed;
+        weaponname = weapondata.name;
+
+        levelBar.SetSlider(0);
+        healthBar.SetSlider(1);
+        staminaBar.SetSlider(1);
+        coolBar.SetSlider(0);
+        //Debug.Log("Width "+Screen.width+" | Height "+Screen.height);
         playerPos.Set(Screen.width/2,Screen.height/2);        //This is really risky because it will not update for screen resizing in start
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("tab")){
+            UI.GetComponent<Inventory>().OnInventoryToggle();
+        }
+        //wenn am attackieren dann wir langsamer
+        //if(Time.time-lastAtk<wpnspeed){Geschw = 1f;}else{Geschw=5f;}
+        if((Time.time-lastAtk)>(wpnspeed+1)){stamina = stamina + (1.0f / 6 * Time.deltaTime);}
+        else{stamina = stamina + (1.0f / 20 * Time.deltaTime);}
+        staminaBar.SetSlider((stamina));
+        if((wpnspeed-(Time.time-lastAtk))>=0){cooldownProgress = (wpnspeed-(Time.time-lastAtk))/wpnspeed;}else{cooldownProgress=0;}
+        if((Time.time-lastAtk <= wpnspeed)){
+            if(cooldownProgress<=0.05f){coolBar.SetSlider(0);}
+            else{coolBar.SetSlider(cooldownProgress);}
+            }//:coolBar.SetSlider((Time.time-lastAtk)/wpnspeed);}
         bewegung.x = Input.GetAxisRaw("Horizontal");
         bewegung.y = Input.GetAxisRaw("Vertical");
 
@@ -58,6 +99,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Fire1")){
             Attacke();
         }
+
     }
 
     private void setOrientation(){
@@ -78,14 +120,20 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(rb.position + bewegung.normalized * Geschw * Time.fixedDeltaTime);
     }
 
-    public void changeWeapon(int damage, float range, float speed){
+    public void changeWeapon(int damage, float range, float speed, float animspeed, string name){
         this.damage = damage;
         this.range = range;
         this.wpnspeed = speed;
+        this.weaponname = name;
+        this.animspeed = animspeed;
     }
     private void Attacke()
     {
-        animation.speed = wpnspeed;
+        Debug.Log(Time.time-lastAtk+" | "+wpnspeed+" | "+animspeed);
+        if(Time.time-lastAtk<wpnspeed || (stamina - handling) <= 0){return;}
+        lastAtk = Time.time;
+        stamina = stamina - handling;
+        animation.speed = animspeed;
         animation.Play("Attack");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, range, enemyLayer);
         
@@ -94,30 +142,32 @@ public class PlayerMovement : MonoBehaviour
             if(enemy is BoxCollider2D){
             /*enemy.GetComponent<Enemy>().GetComponent<Animator>().Play("Hit");
             enemy.GetComponent<Health>().Damage(damage);*/
-                enemy.GetComponent<Enemy>().BeHit(damage);
-                Debug.Log(enemy.name + " Ist getroffen");
+                enemy.GetComponent<Enemy>().BeHit(damage,defaultColor);
+                //Debug.Log(enemy.name + " Ist getroffen");
             }
         }
-        
-        /*if (collider.CompareTag("Enemy")){
-            Debug.Log("Tag ist Enemy");
-            if (collider.GetComponent<Health>() != null)
-            {
-                Debug.Log("Attacke bet�tigt");
-                collider.GetComponent<Health>().Damage(damage);
-                Debug.Log(this.GetComponent<Health>().ShowHealth());
-            }
-        }*/
     }
-    /*void OnDrawGizmoSelected()
-    {
-        if(attackPoint == null)
-        {
-            Debug.Log("AttackPoint = 0");
+
+    public void AddXP(int xp){
+        //Initialisation
+        this.playerXP += xp;
+        float maxXP = level*0.9f*100;
+        float percXP = playerXP/maxXP;
+        //Level-Up
+        if(playerXP>=((maxXP))){
+            int savedXP = Mathf.RoundToInt(playerXP-maxXP);
+            
+            playerXP = 0;
+            level++;
+            levelBar.SetSlider(0);
+            Debug.Log("Level-Up!"+level);
+            Debug.Log("Saved "+savedXP);
+            if(savedXP == 0){levelBar.SetSlider(0);Debug.Log(savedXP == 0);}
+            else{AddXP(savedXP);}
             return;
         }
-
-        Gizmos.color = new Color(1, 1, 0, 0.75f);
-        Gizmos.DrawWireSphere(attackPoint.position, range);
-    }*/
+        //Debug.Log("MaxXP "+maxXP+" | added % "+percXP);
+        levelBar.SetSlider(percXP);
+        //Debug.Log("PlayerXP: "+playerXP);
+    }
 }

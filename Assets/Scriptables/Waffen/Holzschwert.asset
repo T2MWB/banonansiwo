@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aece8a5f97f9ac84a8b4bf782854d94b, type: 3}
   m_Name: Holzschwert
   m_EditorClassIdentifier: 
+  name: holz
   damage: 5
   range: 0.5
+  speed: 0

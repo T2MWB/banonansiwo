@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aece8a5f97f9ac84a8b4bf782854d94b, type: 3}
   m_Name: Schwert
   m_EditorClassIdentifier: 
-  damage: 15
+  name: normal
+  damage: 20
   range: 1
+  handling: 0.2
   speed: 1
+  animspeed: 1

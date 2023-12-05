@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c88fd22ba9121f41a0b7c12d24dd33c, type: 3}
+  m_Name: Wind
+  m_EditorClassIdentifier: 
+  itemType: Rune
+  name: Wind
+  baseDmg: 5
+  Icon: {fileID: 21300000, guid: 0db6e1c469fdfb242aea8c5ac3ef056a, type: 3}
+  InSlot: {fileID: 21300000, guid: 00982ac4e8da89741a2894b35eaa2e64, type: 3}
+  level: 0
+  color: {r: 0.29411766, g: 0.7137255, b: 0.8039216, a: 0}
+  description: Ein jeder Vogel nutzt jene Rune um in der Luft zu bleiben, so die
+    Legende. In menschlichen Proportionen kann sie jedoch noch viel mehr als RedBull.

@@ -227,6 +227,7 @@ MonoBehaviour:
   isDummy: 0
   data: {fileID: 11400000, guid: adfca91427a02d34391f32701c83d558, type: 2}
   animator: {fileID: -832061952463684992}
+  hitColor: {r: 0, g: 0, b: 0, a: 0}
   move: 1
 --- !u!114 &2032645126826934682
 MonoBehaviour:
@@ -241,7 +242,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  singleHit: 0
   indicator: {fileID: 6513508506116121320}
+  xpPrefab: {fileID: 5872533656080861005, guid: 28fd8a0d679cee3438d629a10e032cd3, type: 3}
 --- !u!212 &5248691020670266521
 SpriteRenderer:
   m_ObjectHideFlags: 0

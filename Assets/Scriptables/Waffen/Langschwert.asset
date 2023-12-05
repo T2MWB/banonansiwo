@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aece8a5f97f9ac84a8b4bf782854d94b, type: 3}
   m_Name: Langschwert
   m_EditorClassIdentifier: 
-  damage: 30
-  range: 0.75
-  speed: 0.5
+  name: lang
+  damage: 50
+  range: 1
+  handling: 0.5
+  speed: 1.5
+  animspeed: 0.25
