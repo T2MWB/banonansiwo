@@ -23,7 +23,7 @@ public class ImgStatSlider : MonoBehaviour
 
     public void DecSlider(float value){
         //Debug.Log("DecSlider with "+value);
-        if((currentValue -= value) >= 0){currentValue -= value;}
+        if((currentValue - value) >= 0){Debug.Log((currentValue-value));currentValue = currentValue - value;}
         else{currentValue = 0;}
         image.fillAmount = currentValue;
     }

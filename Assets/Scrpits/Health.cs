@@ -21,7 +21,7 @@ public class Health : MonoBehaviour
     public GameObject xpPrefab;
     public TextMeshPro indicator;
     //This doesnt work (shows no text)
-    public GameObject DamageIndicator;
+    //public GameObject DamageIndicator;
 
     // Update is called once per frame
     void Start()
@@ -36,6 +36,13 @@ public class Health : MonoBehaviour
     //M�glichkeit der Entit�t von ausser Health ab zu ziehen
     public void Damage(int amount,Color color)
     {
+        if(transform.CompareTag("Player")){
+            
+            float percHit = (float) amount/ (float)MAX_HEALTH;
+            //Debug.Log(amount+" , "+MAX_HEALTH+" | "+percHit);
+            transform.GetComponent<PlayerMovement>().BeHit(percHit);
+            
+        }
         //Does all the showy shit now
         int current_damage;
         int.TryParse(indicator.text, out current_damage);
@@ -84,6 +91,10 @@ public class Health : MonoBehaviour
         this.MAX_HEALTH = maxHealth;
         this.health = health;
     }
+    public void GetHealth(out int health,out int MAX_HEALTH){
+        health = this.health;
+        MAX_HEALTH = this.MAX_HEALTH;
+    }
 
     //M�glichkeit der Entit�t von aussen mehr Health zu geben
     public void Heal(int amount)
@@ -108,6 +119,9 @@ public class Health : MonoBehaviour
 
     private void Die()
     {
+        if(this.CompareTag("Player")){
+            transform.GetComponent<PlayerMovement>().Die();
+        }
         Debug.Log(gameObject.name.ToString() + " ist gestorben!");
         //Das muss noch in eine anpassbare Referenz zu ner Methode gemacht werden damit man mit verschiedenen Toden unterschiedlich umgehen kann                         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         /*if (this.CompareTag("Player"))
@@ -127,10 +141,6 @@ public class Health : MonoBehaviour
                 newXP.transform.parent = transform.parent;
             }
             //StartCoroutine(DieDelay());
-        }
-        else
-        {
-            Heal(MAX_HEALTH);
         }
         //Destroy(gameObject);
         //this.close();

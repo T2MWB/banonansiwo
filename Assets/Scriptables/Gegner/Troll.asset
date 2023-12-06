@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Troll
   m_EditorClassIdentifier: 
   hp: 50
-  damage: 15
+  damage: 40
   speed: 0.7

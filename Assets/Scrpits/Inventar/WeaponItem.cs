@@ -8,6 +8,7 @@ public class WeaponItem : MonoBehaviour
     public Weapon weapon;
     private int damage;
     private float range;
+    private float handling;
     private float speed;
     private float animspeed;
     private string name;
@@ -19,13 +20,14 @@ public class WeaponItem : MonoBehaviour
     {
         damage = weapon.damage;
         range = weapon.range;
+        handling = weapon.handling;
         speed = weapon.speed;
         name = weapon.name;
         animspeed = weapon.animspeed;
     }
 
     public void OnTriggerEnter2D(Collider2D collider){
-        collider.GetComponent<PlayerMovement>().changeWeapon(damage,range,speed,animspeed,name);
+        collider.GetComponent<PlayerMovement>().changeWeapon(damage,range,handling,speed,animspeed,name);
         Debug.Log("Schwert geändert | " + damage + " | " + speed+" | "+animspeed);
     }
 }

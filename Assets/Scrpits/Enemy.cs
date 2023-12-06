@@ -20,6 +20,9 @@ public class Enemy : MonoBehaviour
     private float speed = 0.5f;
     [SerializeField]
     private bool isDummy = false;
+    public bool isBoss = false;
+    public GameObject BossBar;
+    private bool colliding = false;
 
 
 //4.12.2023 - Ich bereuhe das was ich hier sehe zutiefst, lasse es aber den Historikern darüber zu urteilen.
@@ -40,6 +43,9 @@ public class Enemy : MonoBehaviour
         rend = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
         SetEnemyValues();
+        if(isBoss){
+            BossSetup();
+        }
     }
 
     void Update()
@@ -81,27 +87,47 @@ public class Enemy : MonoBehaviour
                 animator.Play("Hit");
                 //rend.color = hitColor;
             }
-            GetComponent<Health>().Damage(damage,color);
+            Health health = GetComponent<Health>();
+            health.Damage(damage,color);
+            int currHealth, MAX_HEALTH;
+            health.GetHealth(out currHealth, out MAX_HEALTH);
+            float percHealth = (float) currHealth/(float) MAX_HEALTH;
+            BossBar.transform.GetChild(1).GetComponent<ImgStatSlider>().SetSlider(percHealth);
+            if(currHealth<=0){
+                BossBar.SetActive(false);
+            }
+
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        Attacke(collider);
-    }
-
-    private void Attacke(Collider2D collider)
-    {
-        if (collider.CompareTag("Player") && (collider.GetType() == typeof(BoxCollider2D)) && !animator.GetBool("Death")) //TODO: how does this work?
-        {   //give player damage basically
-            if(!isDummy){
-                animator.Play("ATK");
-                if(collider.GetComponent<Health>() != null)
-                {
-                    Debug.Log(this.gameObject.name + " | " + damage);
-                    collider.GetComponent<Health>().Damage(damage,defaultColor);
-                }
+        colliding = true;
+        if (collider.CompareTag("Player") && (collider.GetType() == typeof(BoxCollider2D)) && !animator.GetBool("Death")){
+        if(!isDummy){
+            animator.Play("ATK");
+            //float length = GetComponent<Animator>().runtimeAnimatorController.animationClips[0].length;
+            //Debug.Log(length);
+            StartCoroutine (Attack(collider));
             }
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collider){
+        colliding = false;
+    }
+
+    private IEnumerator Attack(Collider2D collider)
+    {
+        yield return new WaitForSeconds(3);
+        if(!colliding || animator.GetBool("Death")){yield break;}
+        if(collider.GetComponent<Health>() != null){
+            Debug.Log(this.gameObject.name + " | " + damage);
+            collider.GetComponent<Health>().Damage(damage,defaultColor);
+        }
+
+    }
+    public void BossSetup(){
+        BossBar.SetActive(true);
     }
 }

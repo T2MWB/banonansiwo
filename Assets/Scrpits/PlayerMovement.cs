@@ -22,6 +22,10 @@ public class PlayerMovement : MonoBehaviour
     private int level = 1;
     private float stamina = 1f;
     private float cooldownProgress;
+    public GameObject gameOver;
+    public GameObject levelUp;
+    //Remove this after Presentation
+    public GameObject Boss;
 
     //Bewegung
     public float Geschw = 5f;
@@ -79,8 +83,9 @@ public class PlayerMovement : MonoBehaviour
         }
         //wenn am attackieren dann wir langsamer
         //if(Time.time-lastAtk<wpnspeed){Geschw = 1f;}else{Geschw=5f;}
+        if(stamina <= 1){
         if((Time.time-lastAtk)>(wpnspeed+1)){stamina = stamina + (1.0f / 6 * Time.deltaTime);}
-        else{stamina = stamina + (1.0f / 20 * Time.deltaTime);}
+        else{stamina = stamina + (1.0f / 20 * Time.deltaTime);}}
         staminaBar.SetSlider((stamina));
         if((wpnspeed-(Time.time-lastAtk))>=0){cooldownProgress = (wpnspeed-(Time.time-lastAtk))/wpnspeed;}else{cooldownProgress=0;}
         if((Time.time-lastAtk <= wpnspeed)){
@@ -120,10 +125,11 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(rb.position + bewegung.normalized * Geschw * Time.fixedDeltaTime);
     }
 
-    public void changeWeapon(int damage, float range, float speed, float animspeed, string name){
+    public void changeWeapon(int damage, float range, float handling,float speed, float animspeed, string name){
         this.damage = damage;
         this.range = range;
         this.wpnspeed = speed;
+        this.handling = handling;
         this.weaponname = name;
         this.animspeed = animspeed;
     }
@@ -132,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log(Time.time-lastAtk+" | "+wpnspeed+" | "+animspeed);
         if(Time.time-lastAtk<wpnspeed || (stamina - handling) <= 0){return;}
         lastAtk = Time.time;
+        Debug.Log(handling);
         stamina = stamina - handling;
         animation.speed = animspeed;
         animation.Play("Attack");
@@ -161,6 +168,12 @@ public class PlayerMovement : MonoBehaviour
             level++;
             levelBar.SetSlider(0);
             Debug.Log("Level-Up!"+level);
+            if(level == 5){
+                Boss.SetActive(true);
+                Boss.GetComponent<Enemy>().BossSetup();
+            }
+            levelUp.SetActive(true);
+            levelUp.GetComponent<ImgDeactiveAfterTime>().Setup(2);
             Debug.Log("Saved "+savedXP);
             if(savedXP == 0){levelBar.SetSlider(0);Debug.Log(savedXP == 0);}
             else{AddXP(savedXP);}
@@ -169,5 +182,17 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log("MaxXP "+maxXP+" | added % "+percXP);
         levelBar.SetSlider(percXP);
         //Debug.Log("PlayerXP: "+playerXP);
+    }
+    public void BeHit(float amount){
+        //Debug.Log("Decreasing by "+amount);
+        healthBar.DecSlider(amount);
+    }
+
+    public void Die(){
+        
+        if(!gameOver.activeSelf){
+            gameOver.SetActive(true);
+        }
+        Time.timeScale = 0f;
     }
 }
